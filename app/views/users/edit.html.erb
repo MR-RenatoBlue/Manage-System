@@ -1,0 +1,14 @@
+<%= form_with(model: @user) do |form| %>
+  <div class="form-group">
+    <%= form.collection_check_boxes :role_ids, Role.all, :id, :name %>
+    <%= @user.errors[:roles] %>
+  </div>
+  
+  <%= form.label "User Active?" %>
+  <%= form.label :is_active, "Yes", value: "true"  %>
+  <%= form.radio_button :is_active, true, is_active: true %>
+  <%= form.label :is_active, "No", value: "false" %>
+  <%= form.radio_button :is_active, false, is_active: false %>
+  <p><%= form.button :submit %><p>
+<% end %>
+
