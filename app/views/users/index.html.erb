@@ -1,10 +1,19 @@
 <h1>Users</h1>
-
+<br>
+<div class="row">
+  <div class="col-lg-4 col-md-6 me-auto">
+    <%= form_tag(users_path, method: "get", class: "d-flex") do %>
+      <%#= label_tag(:search, "Search for Users", class: "") %>
+      <%= text_field_tag(:search, params[:search], class: "form-control me-2", 'aria-label': "Search", placeholder: "Search for Users" ) %>
+      <%= submit_tag "Search", class: "btn btn-outline-success" %>
+    <% end %>
+  </div>
+</div>
 <ul>
   <% @users.each do |user| %>
     <li>
       <%= link_to user.email, user %>
-      <%= user.roles.pluck(:name) %>
+      <%= user.roles.pluck(:name).to_sentence %>
       <% if user.is_active? %>
         <%= "Active" %>
       <% else %>

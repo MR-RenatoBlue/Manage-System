@@ -18,4 +18,17 @@ class User < ApplicationRecord
   def inactive_message
     is_active? ? super : :account_inactive
   end
+
+  def self.search(search)
+    if search
+      user_by_email = User.where("email like ?", "%#{search}%")
+      if user_by_email
+        self.where(id: user_by_email)
+      else
+        @users = User.all
+      end
+    else
+      @users = User.all
+    end
+  end
 end

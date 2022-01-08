@@ -3,7 +3,8 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :admin_only
   def index
-    @pagy, @users = pagy(User.order(created_at: :desc))
+    #@pagy, @users = pagy(User.order(created_at: :desc))
+    @pagy, @users = pagy(User.search(params[:search]).order(created_at: :desc))
   end
 
   def edit
@@ -35,7 +36,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit({role_ids: []}, :is_active)
+      params.require(:user).permit({role_ids: []}, :is_active, :search)
     end
 
 end
